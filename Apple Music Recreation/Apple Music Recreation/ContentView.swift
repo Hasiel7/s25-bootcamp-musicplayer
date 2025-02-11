@@ -16,20 +16,22 @@ struct ContentView: View {
     
     @State private var currentTime: Double  = 0
     @State private var totalTime: Double  = 195
+    @State private var sliderView: Double = 0.5
 
 
     var body: some View {
         ZStack {
             VStack{
                 Image(systemName: "chevron.compact.up")
-                    .foregroundStyle(.white)
-                    .padding(.top, 60)
+                    .foregroundStyle(.gray)
+                    .padding(.top, 300)
+                    .fontWeight(.bold)
 
                 VideoPlayer(player: player)
                     .frame(height: 400)
                     .opacity(0.97)
                     .cornerRadius(16)
-                    .padding(.top , 50)
+                    .padding(.top )
                     .ignoresSafeArea()
                     
                 HStack{
@@ -37,7 +39,7 @@ struct ContentView: View {
                         Text("Trance")
                             .foregroundColor(.white)
                             .fontWeight(.bold)
-                            .font(.title2)
+                            .font(.system(size: 25))
                             .frame(maxWidth: 275, alignment: .leading)
 
                         Text("MetroBoomin, Travis Scott & Young Thug")
@@ -73,8 +75,49 @@ struct ContentView: View {
                         
                     }
                 }
-                .padding(.bottom, 300)
                 .padding(.horizontal)
+                .padding(.vertical)
+                HStack{
+                    Image(systemName: "backward.fill")
+                        .foregroundColor(.white)
+                        .font(.largeTitle)
+                    Image(systemName: "pause.fill")
+                        .foregroundColor(.white)
+                        .font(.system(size: 60))
+                        .padding(.horizontal, 50)
+                    Image(systemName: "forward.fill")
+                        .foregroundColor(.white)
+                        .font(.largeTitle)
+            
+                }
+                HStack{
+                    Image(systemName:"speaker.fill")
+                        .foregroundColor(.gray)
+                    Slider(value: $sliderView, in: 0...1)
+                        .accentColor(.gray)
+                        
+                    Image(systemName: "speaker.wave.3.fill")
+                        .foregroundColor(.gray)
+                }
+                .padding(.horizontal)
+                .padding(.top, 30)
+                HStack{
+                    Image(systemName: "quote.bubble")
+                    VStack{
+                        Image(systemName: "beats.headphones")
+                            .padding(.bottom, 3)
+                        Text("Hasiel's Beats Studio Pro")
+                            .font(.footnote)
+                    }
+                    
+                    .padding(.horizontal, 50)
+                    Image(systemName: "list.bullet")
+                }
+                .foregroundColor(.white)
+                .fontWeight(.heavy)
+                .padding(.top, 30)
+                .padding(.bottom, 300)
+                
             }
             .ignoresSafeArea()
     
