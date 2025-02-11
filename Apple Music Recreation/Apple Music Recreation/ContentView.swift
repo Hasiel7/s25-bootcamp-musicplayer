@@ -10,8 +10,13 @@ import AVKit
 
 struct ContentView: View {
     @State private var player: AVPlayer? = nil
-    let Smokey = Color(red: 10/255, green: 6/255, blue: 9/255)
-    let TranceColor = Color(red: 0.051, green: 0.024, blue: 0.043)
+    
+    let Smokey = Color(red: 9/255, green: 6/255, blue: 9/255)
+    let TranceColor = Color(red: 14/255, green: 8/255, blue: 11/255)
+    
+    @State private var currentTime: Double  = 0
+    @State private var totalTime: Double  = 195
+
 
     var body: some View {
         ZStack {
@@ -28,11 +33,48 @@ struct ContentView: View {
                     .ignoresSafeArea()
                     
                 HStack{
-                    Text("Trance")
+                    VStack{
+                        Text("Trance")
+                            .foregroundColor(.white)
+                            .fontWeight(.bold)
+                            .font(.title2)
+                            .frame(maxWidth: 275, alignment: .leading)
+
+                        Text("MetroBoomin, Travis Scott & Young Thug")
+                            .animation(.bouncy)
+                            .foregroundColor(.gray)
+                            .frame(maxWidth: 275, alignment: .leading)
+                    }
+                    .padding(.horizontal, 5)
+                    Image(systemName: "star.circle")
                         .foregroundColor(.white)
-                        .padding(.bottom, 300)
-                        .fontWeight(.bold)
+                        .padding(.horizontal, 5)
+                        .fontWeight(.semibold)
+                    Image(systemName: "ellipsis.circle")
+                        .foregroundColor(.white)
+                        .fontWeight(.semibold)
+                        
                 }
+            
+                HStack{
+                    VStack{
+                        Slider(value: $currentTime, in: 0...totalTime)
+                            .accentColor(.gray)
+                            
+                        HStack{
+                            Text(timeString(from: currentTime))
+                                .foregroundColor(.gray)
+                                .font(.footnote)
+                            Spacer()
+                            Text(timeString(from: totalTime))
+                                .foregroundColor(.gray)
+                                .font(.footnote)
+                        }
+                        
+                    }
+                }
+                .padding(.bottom, 300)
+                .padding(.horizontal)
             }
             .ignoresSafeArea()
     
@@ -47,8 +89,13 @@ struct ContentView: View {
         .ignoresSafeArea()
         
         .onAppear {
-            playVideo()
+           playVideo()
         }
+    }
+    private func timeString(from seconds: Double) -> String{
+        let minutes = Int(seconds) / 60
+        let remainingSeconds = Int(seconds) % 60
+        return String(format: "%d:%02d", minutes, remainingSeconds)
     }
 
     private func playVideo() {
@@ -70,6 +117,7 @@ struct ContentView: View {
             player = avPlayer
         }
     }
+    
 }
 
 #Preview {
